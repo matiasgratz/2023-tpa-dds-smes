@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+    http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+
+    <persistence-unit name="simple-persistence-unit" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <class>ar.edu.utn.frba.dds.Model.GeoRefNormalizacion.Domicilio</class>
+        <class>ar.edu.utn.frba.dds.Model.GeoRefNormalizacion.Ubicacion</class>
+        <class>ar.edu.utn.frba.dds.Model.EntidadesEstablecimientosServicios.Entidad</class>
+        <class>ar.edu.utn.frba.dds.Model.EntidadesEstablecimientosServicios.Controlador</class>
+        <class>ar.edu.utn.frba.dds.Model.EntidadesEstablecimientosServicios.Establecimiento</class>
+        <class>ar.edu.utn.frba.dds.Model.EntidadesEstablecimientosServicios.Incidentes.IncidenteEnComunidad</class>
+        <class>ar.edu.utn.frba.dds.Model.EntidadesEstablecimientosServicios.Incidentes.Incidente</class>
+        <class>ar.edu.utn.frba.dds.Model.UsuariosComunidad.Comunidad</class>
+        <class>ar.edu.utn.frba.dds.Model.UsuariosComunidad.Miembro</class>
+        <class>ar.edu.utn.frba.dds.Model.EntidadesEstablecimientosServicios.Servicio</class>
+        <class>ar.edu.utn.frba.dds.Model.EntidadesEstablecimientosServicios.PrestacionDeServicio</class>
+        <class>ar.edu.utn.frba.dds.Model.UsuariosComunidad.Usuario</class>
+        <class>ar.edu.utn.frba.dds.Model.EntidadesEstablecimientosServicios.Incidentes.Notificacion</class>
+        <class>ar.edu.utn.frba.dds.Model.NotificacionAlUsuario.NotificarAlUsuario</class>
+        <class>ar.edu.utn.frba.dds.Model.NotificacionAlUsuario.NotificarPorMail</class>
+        <class>ar.edu.utn.frba.dds.Model.NotificacionAlUsuario.NotificarPorWhatsapp</class>
+
+
+        <properties>
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
+            <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:app-db"/>
+            <property name="hibernate.connection.username" value="sa"/>
+            <property name="hibernate.connection.password" value=""/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
+
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="use_sql_comments" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+        </properties>
+
+    </persistence-unit>
+
+</persistence>

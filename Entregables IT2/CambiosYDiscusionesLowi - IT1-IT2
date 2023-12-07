@@ -1,0 +1,43 @@
+#ITERACION 1
+[ ] 1) Registrados es god object, un code smell que tiene muchas responsabilidades.
+ La sugerencia de lowi es delegar a muchas clases distintas. Patron REPOSITORY. No pensar en persistencia
+
+[ ] 2) Prestacion de servicio: Enum y clase prestacionde servicio.
+ Sugerencia Eliminar el enum quedo viejo.
+
+#ITERACION 2
+[ ] 4) Get 0: Estamos rompiendo encapsulamiento falta un metodo intermedio podria estar interno en el get 0
+    Clase Ubicacion deberia ser parte de la API. Esto lo comento lucas
+
+[ ] 5) Forma de representar que el usuario tiene 1 sola cosa, estamos haciendolo desde ubicacion pero sobrediseñando.
+En todos los lugares que no sea ubicacion se debe usar localización
+
+[ ] 6) Referencia adapter: compararServicioLocalizados hay que eliminarlo, no se esta usando
+
+[ ] 7) HACER TESTS! :)
+     Ejemplo: direccionNormalizada
+            - una direccion normalizada desde input
+            - un usuario con departamento que compara con la normalizacion hecha
+
+[ ] 10) Concatenar strings es propenso a errores ataques.
+     Sugerencialowi: Que reciba 3 parametros (concatenación adentro), y menciono algo de mocking. Cuanta MENOS complejidad mejor.
+
+[ ] 11) Municipio solo no sirve, debe estar asociado a provinicia alguna referencia o string
+
+[ ] 13)Borrar codigo viejo del csv las cosas que no se usan, lucas. Importar empresa, clase.
+
+[ ] 15) Casos de uso modificar diagrama del plantUML
+
+[ ] 16) Controlador: Organismo de control vamos a tener que pasarlo a otra clase ya que en la cercania puede ser que lo usen.
+
+[ ] 17) BONUS: Inversion de relacion, controlador conozca a la entidad que audita
+
+
+DONE
+[X] 1) Establecimiento --> Ubicacion, quedo vieja volar.
+[X] 2) Agregar Ubicacion --> Localizacion
+[X] 3) Normalizacion de ubicaciones: Nombre del metodo en la clase ubicacion. Deberia ser normalizarUbicacion
+[X] 8) Lo que no se usa en comentarios o deprecated singleton mariano.
+[X] 9) Elegir una de las dos librerias de christian o mariano
+[X] 14) Evitar los numeros Magicos
+[X] 12) Siempre enviarle los cambios por telegram del DDC a lowi

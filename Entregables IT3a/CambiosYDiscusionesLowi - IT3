@@ -1,0 +1,36 @@
+## MasImportante. 
+- [ ] Hacer tests de notificar
+- [ ] Hacer test entregas previas
+
+### Lucas
+- [ ] Clase Comunidad: Metodo servicioDeInteres preguntar si el servicio es de interes, remover esa verificacion en usuario.
+- [ ] Cerrar Estado incidente.
+	- Tenemos estado duplicado, cerrar Incidente en comunidad o Remover el incidente de la comunidad
+
+- [ ] Clase Usuario: Metodo CrearIncidente. Rompe encapsulamiento que el usuario toque a la prestacion de servicio
+- [ ] Estado repartido en 2 fuentes de verdad
+
+### Christian
+- [ ] Dependecias quartz y spring. UI puede chocar dependencias. Ojo con spring. Main con quartz
+- [ ] JOBCrontab Dificil de testear TareaEnviarNotificacionesIncidente
+
+### Mora
+- [ ] notificarmeIncidentesActivosYNoNotificados() --> Metodo grande, dividir en mas chicos.
+- [ ] Clase MedioDeComunicacion notificarIncidente.
+  - Mover la responsabilidad del try
+- [ ] NotificarAlUsuario agregar NotificarPorMail que reciba en su constructor el mail
+    - Que el mensaje send deje de recibir el usuario
+
+### Matias y Marce
+REQ 5 - Sugerencia de revision de incidentes
+- Desechemos tener posicion como una propiedad, tengámoslo como que una persona lo usa.
+- Volar posicion, si no se usa volarlo
+- [x] Eliminar el atributo posición fijandose donde se uso y hacer refactor donde quedo el atributo.
+
+- Metodo iniciarSesionEN(posicion como parametro) va a venir de algun lado..
+- [x] Agregar el parametro.
+- metodo esCercanoA (pasa una posicion de tipo Posicion) Te habilita a calcularDistanciaEntreDos Reciba dos posiciones
+- [x] Refactorizarlo para que reciba dos Posicion posicion.
+
+- Si vos mañana querés que posiciones deje de ser latitudlongitud y que sea municipios, ganamos simplicidad.
+- clase Usuario anteinicidentecomunidad ver si en el proximo tp no hay un requerimiento que nos pida.

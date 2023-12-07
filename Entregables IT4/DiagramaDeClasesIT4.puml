@@ -1,0 +1,530 @@
+@startuml
+'https://plantuml.com/class-diagram
+enum EstadoIncidente {
+  ABIERTO,
+  CERRADO
+}
+
+class Incidente {
+private int id;
+String nombreIncidente;
+String observacion;
+LocalDateTime primerReporte;
+PrestacionDeServicio lugarIncidente;
+
+String getNombrePrestacionDeServicio()
+public boolean esCercanoA(Ubicacion ubicacion)
+void reportarPrimero()
+boolean esDeInteres(List<Servicio> serviciosDeInteres)
+boolean validarReporte(LocalDateTime inicio)
+}
+
+class IncidenteEnComunidad {
+IncidenteEnComunidadId incidenteEnComunidadId;
+Incidente incidente;
+EstadoIncidente estadoIncidente;
+LocalDateTime inicio;
+Comunidad comunidad;
+
+ boolean esCercanoAYEstaAbierto(Ubicacion ubicacion)
+ boolean esCercanoA(Ubicacion ubicacion)
+ boolean estadoIncidenteEsAbierto()
+ int tiempoDeCierre()
+ boolean esDeLaSemana()
+ void cerrarIncidente()
+}
+
+class IncidenteEnComunidadId{
+  Long incidenteId;
+  Long comunidadId;
+}
+
+class Notificacion {
+    Long id;
+    boolean fueNotificado;
+    Incidente incidente;
+
+    boolean esIncidente(Incidente incidente)
+}
+
+class Controlador {
+Long id;
+String email
+TipoDeControlador tipoControlador;
+}
+
+class Entidad {
+Long id;
+String nombreEntidad;
+List<Controlador> controladores
+List<Usuario> interesadosEntidad
+List<Establecimiento> establecimientos
+
+boolean tieneServicio(PrestacionDeServicio servicio)
+void nuevoEstablecimiento(Establecimiento establecimiento)
+List<Establecimiento> entidadTieneServicio(PrestacionDeServicio servicio)
+void crearIncidente(PrestacionDeServicio prestacionDeServicio, String observacion, String nombreIncidente)
+void suscribirseAEntidad(Usuario usuario)
+void desuscribirseAEntidad(Usuario usuario)
+}
+
+class Establecimiento {
+Long id;
+Domicilio domicilio;
+List<PrestacionDeServicio> serviciosPrestados
+Entidad entidad;
+boolean tieneElServicio(PrestacionDeServicio servicio)
+void prestacionDeServicio(PrestacionDeServicio servicio1)
+boolean esCercanoA(Ubicacion ubicacion)
+}
+
+class PrestacionDeServicio {
+long id;
+String nombrePrestacionDeServicio;
+ Servicio servicio;
+ Establecimiento establecimiento;
+
+ boolean esCercanoA(Ubicacion ubicacion)
+ boolean esMismoServicio(Servicio servicio)
+}
+
+class Servicio {
+long id;
+String nombreServicio;
+}
+
+enum TipoDeControlador {
+  ENTIDAD_PRESTADORA,
+  ORGANISMO_CONTROL
+}
+
+class Datos{
+    private int cantidad;
+    private List<Domicilio> ubicaciones;
+    private int inicio;
+    private int total;
+}
+
+class Domicilio{
+  private Altura altura;
+  private Calle calle;
+  private Departamento departamento;
+  private String nomenclatura;
+  private String piso;
+  private Provincia provincia;
+  public Ubicacion ubicacion;
+}
+
+class Provincia{
+  private String id;
+  private String nombre;
+}
+
+class Departamento{
+  private String id;
+  private String nombre;
+}
+
+class Calle{
+  private String categoria;
+  private String id;
+  private String nombre;
+}
+
+class Altura{
+  private String unidad;
+  private int valor;
+}
+
+interface ServicioDeNormalizacion{
+    public Domicilio normalizacionLocalizacion(String Calle, String Altura, String Provincia, String Municipio)
+}
+
+class GeorefGob implements ServicioDeNormalizacion{
+public Domicilio normalizacionLocalizacion(String Calle, String Altura, String Provincia, String Municipio)
+}
+
+class Ubicacion{
+  private double lat;
+  private double lon;
+  ServicioUbicacionGps servicioUbicacionGps;
+}
+
+abstract class NotificarAlUsuario {
+ Long id;
+   abstract void send(Usuario usuario, String subject, String message) throws MessagingException
+}
+
+class NotificarPorMail extends NotificarAlUsuario{
+JavaMailSender mailSender;
+send(Usuario usuario, String subject, String message)
+}
+
+class NotificarPorWhatsapp extends NotificarAlUsuario{
+void send(Usuario usuario, String subject, String message)
+}
+
+
+
+class EntidadComparatorCantidad{
+List<Comunidad> comunidades;
+int compare(Entidad entidad1, Entidad entidad2)
+int cantidadIncidentesPorEntidad(Entidad entidad, List<Comunidad> comunidades)
+List<Comunidad> comunidadesDeEntidad(List<Comunidad> comunidades, Entidad entidad)
+}
+
+class EntidadComparatorTiempo{
+List<Comunidad> comunidades;
+int compare(Entidad entidad1, Entidad entidad2)
+int promedioDeCierre(Entidad entidad, List<Comunidad> comunidades)
+int tiempoPorComunidad(List<Comunidad> comunidades, Entidad entidad)
+List<Comunidad> comunidadesDeEntidad(List<Comunidad> comunidades, Entidad entidad)
+}
+
+class ExportacionRanking {
+void GenerarInformePorCantidadIncidentes(ArrayList<Entidad> entidades, List<Comunidad> comunidades, String csvPathSalida)
+public void GenerarInformePorTiempoPromedio(ArrayList<Entidad> entidades, List<Comunidad> comunidades, String csvPathSalida)
+}
+
+interface Ranking{
+    List<Entidad> iniciarReporte(List<Entidad>, List<Comunidad>)
+}
+class RankingCantidadDeIncidentes implements Ranking{
+    List<Entidad> iniciarReporte(List<Entidad>, List<Comunidad>)
+}
+class RankingTiempoPromedioDeCierre implements Ranking{
+    List<Entidad> iniciarReporte(List<Entidad>, List<Comunidad>)
+}
+
+class Comunidad {
+Long id;
+List<Miembro> miembros
+List<Servicio> serviciosDeInteres
+List<IncidenteEnComunidad> incidentesDeComunidad
+
+List<IncidenteEnComunidad> getIncidentesDeComunidad()
+void agregarServicioInteres(Servicio interes)
+void agregarIncidente(Incidente incidente)
+void cerrarIncidente(Incidente incidente)
+List<IncidenteEnComunidad> incidentesCercanoEnComunidad(Ubicacion ubicacion)
+int tiempoDeCierre(Entidad entidad)
+int incidentesEnLaSemnana()
+}
+
+class DistanciaEntreDosPosiciones {
+double calcularDistancia(Ubicacion unaPosicion, Ubicacion otraPosicion)
+}
+
+class Miembro {
+MiembroId miembroId;
+Comunidad miComunidad;
+Usuario usuario;
+
+public List<IncidenteEnComunidad> incidentesActivosEnMiComunidad(Ubicacion ubicacion)
+ void crearIncidenteEnComunidad(Incidente incidente)
+ void notificarSiEsNecesario(Incidente incidente)
+ void anteCierreIncidente(Incidente incidente)
+}
+
+class MiembroId{
+  private Long usuarioId;
+  private Long comunidadId;
+}
+
+interface ServicioUbicacionGps{
+Ubicacion obtenerUbicacion();
+}
+
+class Usuario{
+Long id;
+int startNotificacion
+int finishNotificacion
+List<Servicio> serviciosDeInteres
+List<Miembro> misMembresias
+List<Notificacion> incidenteANotificar
+NotificarAlUsuario medioDeComunicacionPreferido
+String nombre
+String contrasenia
+String email
+String tel
+LocalDate fechaRegistracion;
+LocalDate fechaExpiracionContrasenia;
+
+void setMedioDeComunicacionPreferido(NotificarAlUsuario medioDeComunicacionPreferido)
+void setNotificaciones(int startNotificacion, int finishNotificacion)
+void notificarmeIncidentesActivosYNoNotificados()
+void anteCierreIncidente(Incidente incidente)
+void notificarSiEsNecesario(Incidente incidente)
+void crearIncidente(PrestacionDeServicio prestacionDeServicio, String observacion, String nombreIncidente)
+void anteIncidenteEntidad(Incidente incidente, Entidad entidad, PrestacionDeServicio prestacionDeServicio)
+}
+
+Usuario-->"*"Servicio
+Usuario-->"*"Miembro
+Usuario-->"*"Notificacion
+Usuario-->NotificarAlUsuario
+Usuario..>ServicioUbicacionGps
+
+
+ServicioUbicacionGps..>Ubicacion
+
+Miembro-->MiembroId
+Miembro-->Comunidad
+Miembro-->Usuario
+
+DistanciaEntreDosPosiciones..>Ubicacion
+
+Comunidad-->"*"Miembro
+Comunidad-->"*"Servicio
+Comunidad-->"*"IncidenteEnComunidad
+
+
+Ranking ..> Entidad
+Ranking ..> Comunidad
+
+ExportacionRanking..>Entidad
+ExportacionRanking..>RankingCantidadDeIncidentes
+ExportacionRanking..>RankingTiempoPromedioDeCierre
+
+EntidadComparatorCantidad --> Comunidad
+EntidadComparatorTiempo --> Comunidad
+
+
+ServicioDeNormalizacion ..> Datos
+Datos --> "*" Domicilio
+Domicilio --> Calle
+Domicilio --> Altura
+Domicilio --> Departamento
+Domicilio --> Provincia
+Domicilio --> Ubicacion
+
+
+Incidente --> PrestacionDeServicio
+IncidenteEnComunidad-->EstadoIncidente
+IncidenteEnComunidad-->IncidenteEnComunidadId
+IncidenteEnComunidad-->Incidente
+Notificacion-->Incidente
+Controlador-->TipoDeControlador
+Entidad-->"*"Controlador
+Entidad-->"*"Usuario
+Entidad-->"*"Establecimiento
+Establecimiento-->Domicilio
+Establecimiento-->"*"PrestacionDeServicio
+PrestacionDeServicio-->"*"Servicio
+PrestacionDeServicio-->"*"Establecimiento
+
+
+@enduml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+enum TipoDeEntidad{
+    LINEA_DE_SERVICIO_DE_TRANSPORTE,
+    ORGANIZACION
+}
+enum TipoDeControlador{
+    EMPRESA,
+    ORGANISMO_CONTROL
+}
+
+class Controlador{
+    String email
+    TipoDeControlador tipoDeControlador
+}
+Controlador --> TipoDeControlador
+
+class Entidad{
+    String nombre
+    TipoDeEntidad tipoDeEntidad
+    ArrayList<Controlador> controladores;
+    ArrayList<Establecimiento> establecimientos
+    List<Usuario> interesadosEntidad
+
+    void crearIncidente(PrestacionDeServicio prestacionDeServicio, String observacion, String nombreIncidente)
+    boolean tieneServicio(PrestacionDeServicio servicio)
+    boolean estaEnLocacion(Localizacion locacion);
+    void enviarResumenAControladores()
+    void crearIncidenteDesdeEntidad(PrestacionDeServicio)
+}
+
+Entidad --> "*" Usuario
+
+class RepoUsuarios {
+List<Usuario> usuarios
+List<Usuario> getRepoUsuarios()
+}
+
+RepoUsuarios --> Usuario
+
+Entidad --> "*" Establecimiento
+Entidad --> TipoDeEntidad
+Entidad --> "*" Controlador
+Entidad --> RepoUsuarios
+
+class Establecimiento{
+    String nombre
+    Domicilio domicilio
+    List<PrestacionDeServicio> serviciosPrestados
+    boolean esAccesible(Servicio)
+    boolean tieneServici(PrestacionDeServicio)
+}
+
+
+Establecimiento --> "*" PrestacionDeServicio
+
+
+
+class Servicio {
+    String Descripcion
+}
+
+class PrestacionDeServicio{
+    boolean funciona
+    Servicio servicio
+}
+
+PrestacionDeServicio --> Servicio
+
+class Comunidad{
+    List<Usuario> miembros
+    List<Servicio> serviciosDeInteres
+
+    List<IncidenteEnComunidad> incidentesDeComunidad
+
+    void agregarIncidente(Incidente incidente)
+    void cerrarIncidente(Incidente incidente)
+    void notificarMiembrosApertura(Incidente incidente)
+
+    void notificarMiembrosCierre(Incidente incidente)
+    int tiempoDeCierre(Entidad entidad)
+    Stream<IncidenteEnComunidad> incidentesDeEntidad(Entidad entidad)
+    int incidentesEnLaSemnana()
+}
+
+Comunidad --> "*" IncidenteEnComunidad
+
+class IncidenteEnComunidad{
+    Incidente incidente
+    EstadoIncidente estadoIncidente
+    LocalDateTime inicio
+    int tiempoDeCierre()
+    PrestacionDeServicio prestacionDeServicio()
+    boolean esDeLaSemana()
+}
+ IncidenteEnComunidad --> Incidente
+ IncidenteEnComunidad --> EstadoIncidente
+
+
+Comunidad -left-> "*"  Servicio
+Comunidad --> "*" Miembro
+
+
+class Miembro {
+    Usuario usuario
+    Comunidad miComunidad
+    boolean esAdministrador
+    boolean esAdministradorDeComunidad()
+}
+Miembro --> Usuario
+Miembro --> Comunidad
+Usuario --> "*" Miembro
+
+class Usuario {
+    List<Servicio> serviciosDeInteres
+    List<Miembro> misMembresias
+    List<Notificacion> incidentesANotificar
+    NotificarAlUsuario medioDeComunicacionPreferido
+
+    List<Servicio> serviciosDeInteresConIncidentes()
+    Int localizacionNormalizada()
+    List<Servicio> serviciosLocales()
+    void notificarmeIncidentesActivosYNoNotificados()
+    public void anteCierreIncidente(Incidente incidente)
+    void notificarSiEsNecesario(Incidente incidente)
+    void crearIncidente(PrestacionDeServicio prestacionDeServicio, String observacion, String nombreIncidente)
+    void sugerirRevisionDeIncidentesCercanos()
+}
+
+Usuario --> "*" Notificacion
+Usuario --> NotificarAlUsuario
+
+class Notificacion{
+    boolean fueNotificado
+    Incidente incidente
+    boolean esIncidente(Incidente incidente)
+}
+
+Notificacion --> Incidente
+
+enum EstadoIncidente {
+    ABIERTO,
+    CERRADO
+}
+
+Incidente --> EstadoIncidente
+
+class Incidente {
+    EstadoIncidente estado
+    String observacion
+    PrestacionDeServicio lugarIncidente
+}
+
+Incidente --> PrestacionDeServicio
+
+
+Usuario --> "*" Servicio
+
+interface NotificarAlUsuario {
+    void send(Usuario, String, String)
+}
+interface Ranking{
+    List<Entidad> iniciarReporte(List<Entidad>, List<Comunidad>)
+}
+class RankingCantidadDeIncidentes{
+    List<Entidad> iniciarReporte(List<Entidad>, List<Comunidad>)
+}
+class RankingTiempoPromedioDeCierre{
+    List<Entidad> iniciarReporte(List<Entidad>, List<Comunidad>)
+}
+
+RankingCantidadDeIncidentes ..|> Ranking
+RankingTiempoPromedioDeCierre ..|> Ranking
+Ranking ..> Entidad
+Ranking ..> Comunidad
+
+interface ITareasProgramadas {
+    void execute()
+}
+
+class TareaEnviarNotificacionIncidentes implements ITareasProgramadas {
+    void execute()
+}
+
+TareaEnviarNotificacionIncidentes ..> RepoUsuarios
+
+class EnviarNotificacionesJob {
+    ITareasProgramadas tarea
+    void executeInternal()
+}
+
+class ConfiguracionJob {
+    ITareasProgramadas notificar
+}
+
+ConfiguracionJob --> ITareasProgramadas
+
+EnviarNotificacionesJob --> ITareasProgramadas
+
+
+@enduml

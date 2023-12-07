@@ -1,0 +1,59 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class RegistrarEntidad{
+    public Entidad traerEntidadSiExisteSinoCrearla(String)
+}
+
+RegistrarEntidad ..> Entidad
+RegistrarEntidad --> Registrados
+
+class RegistrarControlador{
+    public void registrarControladorEnEntidad(String,TipoDeControlador,Entidad)
+}
+
+RegistrarControlador --> Registrados
+RegistrarControlador ..> Controlador
+
+class Registrados{
+    private List<Usuario> usuarios = new ArrayList<>();
+    private List<Entidad> entidades = new ArrayList<>();
+    private List<Controlador> controladores = new ArrayList<>();
+}
+
+Registrados --> Entidad
+Registrados --> Controlador
+
+class ImportarEmpresa{
+    public void darAltaEmpresas(String csvPathEntrada)
+}
+
+ImportarEmpresa --> Registrados
+ImportarEmpresa ..> RegistrarControlador
+ImportarEmpresa ..> RegistrarEntidad
+
+enum TipoDeControlador{
+    EMPRESA,
+    ORGANISMO_CONTROL
+}
+
+class Controlador{
+    String email
+    TipoDeControlador tipoDeControlador
+}
+Controlador --> TipoDeControlador
+
+class Entidad{
+    String nombre
+    TipoDeEntidad tipoDeEntidad
+    ArrayList<Controlador> controladores;
+    ArrayList<Establecimiento> establecimientos
+    boolean estaEnLocacion(Localizacion locacion);
+}
+
+Entidad --> "*" Controlador
+
+
+
+
+@enduml

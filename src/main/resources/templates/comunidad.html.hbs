@@ -1,0 +1,26 @@
+{{# partial "titulo" }}
+    <title> SMES - Comunidad</title>
+{{/partial}}
+
+{{#partial "contenido" }}
+
+    <div class="align-items: center">
+        <h1>{{miembro.miComunidad.getNombre}}</h1>
+
+        <h2>Miembros en la comunidad</h2>
+
+        <ul>
+            {{#miembro.miComunidad.getMiembros}}
+                <li>
+                    {{getUsuario.getNombre}}
+                    {{#if isEsAdmin}}
+                        (Es Admin)
+                    {{/if}}
+                </li>
+            {{/miembro.miComunidad.getMiembros}}
+        </ul>
+
+    </div>
+
+{{/partial}}
+{{> layout.html.hbs }}

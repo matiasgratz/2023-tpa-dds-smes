@@ -1,0 +1,40 @@
+{{# partial "titulo" }}
+    <title> SMES - Reportar Incidentes</title>
+{{/partial}}
+{{# partial "contenido" }}
+    <form method="POST">
+        <div class="cont-formulario-incidente">
+            <div class="formulario">
+                <h1 style="color: #585fbe; font-size: 40px; margin-bottom:80px;"> {{incidente.nombreIncidente}}</h1>
+
+                <div class="campo">
+                    <span>Servicio</span>
+                    <p class="datos"> {{incidente.lugarIncidente.nombrePrestacionDeServicio}}</p>
+                </div>
+
+                <div class="campo">
+                    <span> Tipo de servicio</span>
+                    <p class="datos"> {{incidente.lugarIncidente.servicio.nombreServicio}}</p>
+                </div>
+
+                <div class="campo">
+                    <span>Comunidad</span>
+                    <p class="datos">  {{comunidadIncidente.nombre}}</p>
+                </div>
+
+                <div class="campo">
+                    <span>Observaciones</span>
+                    <p class="datos">{{incidente.observacion}}</p>
+                </div>
+                <br>
+
+                <div>
+                    <button type="button" class="boton-registro" onclick="location.href='/'">Atrás</button>
+                    <input type="submit" class="boton-registro" style="background-color:#7982fc; color:white"
+                           value="Resolver Incidente">
+                </div>
+            </div>
+        </div>
+    </form>
+{{/partial}}
+{{> layout.html.hbs }}

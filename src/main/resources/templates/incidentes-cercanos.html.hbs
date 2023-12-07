@@ -1,0 +1,63 @@
+{{# partial "titulo" }}
+    <title> Mis Incidentes Cercanos</title>
+{{/partial}}
+
+
+{{# partial "contenido" }}
+    <h1>Mis Incidentes Cercanos</h1>
+    {{#if error}}
+        <div><p>Error, por favor active la ubicacion</p></div>
+    {{else}}
+        <table>
+            <tr class="titulos-columnas">
+                <th>Incidente</th>
+                <th>Establecimiento</th>
+                <th>Comunidad</th>
+                <th>Servicio</th>
+                <th>Estado</th>
+            </tr>
+
+            {{#incidenteEnComunidades}}
+                <tr>
+                    <td><a href="/incidentes/{{incidenteEnComunidadId}}">{{incidente.nombreIncidente}}</a></td>
+                    <td>{{incidente.lugarIncidente.establecimiento.nombreEstablecimiento}}</td>
+                    <td>{{comunidadIncidente.nombre}}</td>
+                    <td>{{incidente.lugarIncidente.nombrePrestacionDeServicio}}</td>
+                    {{#if this.estadoIncidenteEsAbierto}}
+                        <td>ABIERTO</td>
+                    {{else}}
+                        <td>CERRADO</td>
+                    {{/if}}
+                </tr>
+            {{/incidenteEnComunidades}}
+
+        </table>
+    {{/if}}
+{{/partial}}
+
+
+<script>
+
+    function obtenerYGuardarUbicacion() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitud = position.coords.latitude;
+                var longitud = position.coords.longitude;
+
+                // Crear una cookie con latitud y longitud
+                document.cookie = `latitud=${latitud}; path=/`;
+                document.cookie = `longitud=${longitud}; path=/`;
+
+            });
+        } else {
+            alert("La geolocalización no es compatible en este navegador.");
+        }
+    }
+
+    // Llamar a la función al cargar la página o cuando se haga clic en un botón
+    window.onload = obtenerYGuardarUbicacion;
+
+</script>
+
+
+{{> layout.html.hbs }}

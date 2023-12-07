@@ -1,0 +1,59 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Usuario {
+    Posicion posicion
+      NotificarAlUsuario medioDeComunicacionPreferido
+    List<Miembro> misMembresias
+    void iniciarSesion()
+    List<IncidenteEnComunidad> incidentesActivosDeMisComunidades()
+    void sugerirRevisionDeIncidentesCercanos()
+}
+
+Usuario --> Posicion
+Usuario -->"*" Miembro
+Usuario --> NotificarAlUsuario
+
+class Miembro {
+List<IncidenteEnComunidad> incidentesActivosEnMiComunidad()
+}
+
+Miembro --> Usuario
+
+class Posicion {
+    double lat
+    double lon
+    Usuario usuario
+
+    void actualizarPosicion()
+    boolean esCercanoA(Double, Double, int)
+    List<PrestacionDeServicio> serviciosConIncidenteCercanos()
+}
+
+Posicion ..> DistanciaEntreDosUbicaciones
+Posicion --> ServicioUbicacionGps
+Posicion --> Usuario
+
+
+interface ServicioUbicacionGps {
+    double obtenerLatitud()
+    double obtenerLongitud()
+}
+
+class DistanciaEntreDosUbicaciones {
+    double calcularDistancia(double, double, double, double)
+}
+
+interface NotificarAlUsuario {
+    void send(Usuario, String, String)
+}
+
+class NotificarPorWhatsapp implements NotificarAlUsuario {
+    void send(Usuario, String, String)
+}
+
+class NotificarPorMail implements NotificarAlUsuario {
+    void send(Usuario, String, String)}
+}
+
+@enduml

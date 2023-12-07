@@ -1,0 +1,36 @@
+@startuml
+left to right direction
+rectangle "Sistema de Apoyo a Comunidades con Movilidad Reducida" {
+  usecase "Registrar en la plataforma" as UC1
+  usecase "Iniciar sesion" as UC2
+  UC1 .> (Validar Contraseña) :<<include>>
+  usecase "Administrar los servicios publicos" as UC3
+  usecase "Administrar el servicio" as UC4
+  usecase "Administrar prestacion de servicios" as UC5
+  usecase "Administrar comunidades y miembros" as UC6
+}
+actor Usuario as user
+user --> UC1
+user --> UC2
+
+"Administrador del sistema" as Admin
+Admin --> UC3
+Admin --> UC4
+Admin --> UC5
+Admin --> UC6
+
+
+
+@enduml
+
+"Usuario" as User
+User --> (Registrar en la plataforma)
+(Registrar en la plataforma) .> (Validar Contraseña) :<<include>>
+User --> (Iniciar sesion)
+
+
+"Administrador del sistema" as Admin
+Admin --> (Administrar los servicios publicos)
+Admin --> (Administrar el servicio)
+Admin --> (Administrar prestacion de servicios)
+Admin -->

@@ -1,0 +1,52 @@
+{{# partial "titulo" }}
+    <title> SMES - Home</title>
+{{/partial}}
+
+
+{{# partial "contenido" }}
+        <h1>Mis Incidentes</h1>
+        <div>
+            <form action="/" method="GET">
+
+                <label>
+                    <input type="text" name="comunidad" placeholder="Buscar Comunidad" class="campo-largo" style="padding: 10px; height: inherit;">
+                </label>
+                <select name="estado" id="estado" class="dropdown" style="padding: 10px; height: inherit;">
+                    <option value="ABIERTO">ABIERTO</option>
+                    <option value="CERRADO">CERRADO</option>
+                    <option value="TODOS">TODOS</option>
+                </select>
+                <input type="submit" value="Buscar" class="boton-registro">
+                <button class="boton-registro"><a href="/" style="color: inherit; text-decoration: none;">Resetear Filtros</a></button>
+                <button type="button" class="boton-reportar" onclick="location.href='/reportarIncidente'" style="padding: 10px; height: inherit;">Reportar Incidente</button>
+
+            </form>
+
+        </div>
+        <table>
+            <tr class="titulos-columnas">
+                <th>Incidente</th>
+                <th>Establecimiento</th>
+                <th>Comunidad</th>
+                <th>Servicio</th>
+                <th>Estado</th>
+            </tr>
+
+            {{#incidenteEnComunidades}}
+            <tr>
+                <td><a href="/incidentes/{{incidenteEnComunidadId}}">{{incidente.nombreIncidente}}</a></td>
+                <td>{{incidente.lugarIncidente.establecimiento.nombreEstablecimiento}}</td>
+                <td>{{comunidadIncidente.nombre}}</td>
+                <td>{{incidente.lugarIncidente.nombrePrestacionDeServicio}}</td>
+                {{#if this.estadoIncidenteEsAbierto}}
+                    <td>ABIERTO</td>
+                {{else}}
+                    <td>CERRADO</td>
+                {{/if}}
+            </tr>
+            {{/incidenteEnComunidades}}
+
+        </table>
+{{/partial}}
+
+{{> layout.html.hbs }}

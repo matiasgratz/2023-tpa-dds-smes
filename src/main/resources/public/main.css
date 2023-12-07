@@ -1,0 +1,403 @@
+
+/* Estilos para centrar en la pantalla */
+.cont-formulario {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-image: url("richard-horvath-_nWaeTF6qo0-unsplash - copia.jpg");
+    background-size: 1920px 1080px;
+    font-family:Arial, sans-serif;
+}
+
+.error{
+    background: #ffffff69;
+    font-size: 18;
+    color: white;
+    border-radius: 50px;
+    padding: 10;
+}
+
+/* Estilos para el contenedor del formulario */
+
+.formulario h1{
+    margin-top: 0;
+    color: white;
+    font-size: 80;
+    font-family: calibri;
+    margin-bottom: 0;
+}
+
+.formulario p{
+    color: white;
+}
+
+.cont-formulario-incidente {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+    padding: 0;
+    font-family:Arial, sans-serif;
+}
+
+.cont-formulario-incidente .formulario .campo {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.campo .datos {
+    padding: 10px;
+    padding-inline-start: 20px;
+    padding-inline-end: 20px;
+    border-radius: 30px;
+    width: 50%;
+    margin-left: 5px;
+    text-align: center;
+    background-color: #efefef;
+    color:black;
+}
+
+/* Estilos para los campos de entrada */
+.campo {
+    margin-bottom: 10px;
+}
+
+.campo input {
+    border: 1px solid #999;
+    padding: 10px;
+    border-radius: 30px;
+    width: 100%;
+    margin-left: 5px;
+    margin-bottom: 20px;
+}
+
+
+
+
+.campo select {
+    border: 1px solid #999;
+    padding: 12px;
+    border-radius: 30px;
+    width: 100%;
+}
+
+.campo label {
+    position: absolute;
+    top: 8px;
+    left: 12px;
+    pointer-events: none;
+    font-size: 12px;
+    color: #999;
+}
+
+
+.boton {
+    width: 100px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 50px;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+.boton-registro, .boton-inicio, .boton-general {
+    padding: 10px 10px;
+    border: 1px solid #999;
+    border-radius: 50px;
+    text-align: center;
+    margin:10px;
+    font-size: 14px;
+    min-width: 160px;
+}
+.botones {
+
+}
+
+/* Estilos para el botón de iniciar sesión */
+input[type="submit"] {
+    flex: 1;
+}
+
+/* Estilos para el botón de registro */
+button {
+    flex: 1;
+}
+
+.button.big {
+    width: 90px;
+    height: 40px;
+}
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+}
+
+main {
+    padding: 20px;
+    margin-right:40px;
+    margin-left:40px;
+}
+
+/* Estilos para la barra de navegación */
+nav {
+    background-color: #050079;
+    overflow: hidden;
+}
+
+section{
+    margin-left: 40px;
+    margin-right: 40px;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilos para los enlaces de navegación */
+nav a {
+    text-decoration: none;
+    color: #fff;
+    margin-right: 10px;
+}
+
+nav ul {
+    list-style: none;
+    overflow: hidden;
+}
+
+nav ul li {
+    float: left;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+nav ul li a {
+    display: block;
+    padding: 10px;
+    color: #fff;
+    text-decoration: none;
+}
+nav ul li:hover {
+    background: #eca023;
+}
+
+h1 {
+    color: #585fbe;;
+    font-size: 28px;
+}
+
+p {
+    color: black;
+}
+
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 5px 0;
+}
+.contenedor-formularios {
+    background: #ffffffd6;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding: 10px;
+    border-radius:20px;
+}
+
+.contenedor-formularios-registro {
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.formulario {
+    width: 35%;
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    background: #ffffff4d;
+    text-align:center;
+}
+
+.fondo-registro {
+    background-image: url("richard-horvath-_nWaeTF6qo0-unsplash - copia.jpg");
+    background-size: 1952px 1325px;
+    margin:0px;
+    padding:5%;
+
+}
+
+
+
+.formulario-registro {
+    margin: 5%;
+}
+
+.formulario-registro .campo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.formulario.notificaciones {
+    margin-left: 2%;
+    text-align: left;
+}
+
+.campo-notificaciones, .campo-horarios {
+    margin-top: 10px;
+}
+
+.campo-login input {
+    width: 353px;
+    padding: 10px;
+    border: 1px solid #999;
+    border-radius: 50px;
+}
+
+.boton-reportar {
+    width: 250px;
+    height: 30px;
+    background-color: #7982fc;
+    color: white;
+    border: 1px solid #999;
+    border-radius: 50px;
+    font-size: 15px;
+    position: absolute;
+    right: 0px;
+    margin-right: 60px;
+    margin-top: 10px;
+}
+
+/* Estilos para la tabla */
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+}
+
+tr {
+    background-color: #f2f2f2;
+    text-align: center;
+    height:60px;
+}
+
+th, td {
+    padding: 8px;
+    border: none;
+    border-bottom: 5px solid #ffffff;
+}
+
+th {
+    border-left: none;
+}
+
+td {
+    border-left: none;
+}
+
+.titulos-columnas{
+    background-color: white;
+    color: black;
+}
+
+/* Estilos para las cards*/
+
+.cards {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.card {
+    margin: 14px;
+    width:300px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f2f2f2;
+    text-align: center;
+    border-radius:20px;
+}
+
+.card .head{
+    background-color: #7982fc;
+    font-size: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    font-weight: bold;
+    color: white;
+    padding: 20px;
+}
+
+
+.card .content {
+    flex-grow: 1;
+    flex-shrink: 1;
+    background-color: #f2f2f2;
+    padding: 5px;
+}
+
+.card .footer {
+    font-size: 14px;
+    padding: 10px;
+}
+
+.campo-texto {
+    width: 300px;
+    height: 300px;
+    border: 1px solid #999;
+    border-radius: 50px;
+}
+.dropdown {
+
+    height: 30px;
+    border: 1px solid #999;
+    border-radius: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+dropdown-varios.dropdown{
+    width: 300px;
+    text-align:center;
+    margin:10px;
+}
+
+.campo-largo {
+    width: 300px;
+    height: 30px;
+    border: 1px solid #999;
+    border-radius: 50px;
+    text-align: center;
+    margin: 10px;
+}
+
+
+.formulario-registro .dropdown{
+    width: 100%;
+    margin-bottom: 20px;
+}
+.registro{
+    text-align:center;
+    margin-top:40px;
+    margin-bottom:40px;
+}
+
+.botones-registro{
+    display:flex;
+    align-content: flex-end;
+    margin-top: 50px;
+    margin-left: 150px;
+}
+.error-registro{
+    color: #c70000;
+    margin-top: 20px;
+    font-size: 12px;
+    text-align:right;
+}
+
+

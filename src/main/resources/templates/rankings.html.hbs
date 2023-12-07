@@ -1,0 +1,43 @@
+{{# partial "titulo" }}
+    <title> SMES - Rankings</title>
+{{/partial}}
+
+{{#partial "contenido" }}
+
+
+
+        <div class="container">
+            <h1>Rankings de la semana</h1>
+            <form method="GET">
+                <select name="ranking" style="border-radius: 25px; background: white; width:250px;padding: 10px; text-align:center;margin:10px;">
+                    <option value="">Seleccione tipo de ranking</option>
+                    <option value="rankingCantidad">Cantidad de incidentes</option>
+                    <option value="rankingTiempoPromedio">Tiempo promedio de cierre</option>
+                    <!-- etc -->
+                </select>
+                <input type="submit" value="Buscar"  class="boton-inicio">
+                <input type="submit" value="Exportar" style="float: right" class="boton-registro">
+            </form>
+        </div>
+
+
+    <div class="formulario" style="display: flex; justify-content: center; width: 100%;">
+    <table style="width:30%">
+                <thead>
+                <tr>
+                    <th>Entidad</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#entidades}}
+                    <tr>
+                        <td> {{nombreEntidad}} </td>
+                    </tr>
+                {{/entidades}}
+                </tbody>
+            </table>
+    </div>
+
+{{/partial}}
+
+{{> layout.html.hbs }}

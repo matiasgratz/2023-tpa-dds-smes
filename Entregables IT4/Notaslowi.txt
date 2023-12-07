@@ -1,0 +1,11 @@
+TPA4 - Feedback lowi
+DER
+- Revisar si era necesario que las comunidades agrupen servicios segun un criterio. "Check enunciado porque no se sabe si es asi".
+- Borrar un atributo del DER, no me acuerdo si era usuario.
+-- Añadir a Usuario todos los atributos
+ - Añadir el atributo telefono.
+- Eliminar en usuario, el atributo mailONumero.
+
+Hasta ahi llegue se me acabo la bateria :(
+Enviar DER actualizado.
+

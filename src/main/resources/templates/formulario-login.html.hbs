@@ -1,0 +1,68 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/main.css">
+    <title> SMES - Login</title>
+</head>
+
+<body>
+
+
+<form method="POST">
+    <div class="cont-formulario">
+        <div class="formulario">
+            <h1>SMES</h1>
+            <p style="margin-bottom:30px">Sistema de Monitoreo de Estado de Servicios</p>
+            <div class="campo campo-login" style="margin-bottom:30px">
+                <input type="text" id="nombre" name="nombre" placeholder="Email">
+            </div>
+            <div class="campo campo-login" style="margin-bottom:30px">
+                <input type="password" id="contrasenia" name="contrasenia" placeholder="Contraseña">
+            </div>
+            <div class="botones" style="margin-bottom:30px">
+                <input onclick="obtenerYGuardarUbicacion()" type="submit" class="boton-inicio" value="Iniciar sesión">
+                <button type="button" class="boton-registro" onclick="location.href='/registro'">Registrarse
+                </button>
+            </div>
+            {{#if error}}
+                <div>
+                    <h2 class = "error">El usuario o la contraseña son incorrectos. Intentaste {{intentos}} de 3 veces.</h2>
+                </div>
+            {{/if}}
+            {{#if bloqueado}}
+                <div>
+                    <h2 class = "error">Usuario bloqueado. Espere 30 segundos para volver a intentar.</h2>
+                </div>
+            {{/if}}
+        </div>
+    </div>
+</form>
+
+
+<script>
+
+    function obtenerYGuardarUbicacion() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitud = position.coords.latitude;
+                var longitud = position.coords.longitude;
+
+                // Crear una cookie con latitud y longitud
+                document.cookie = `latitud=${latitud}; path=/`;
+                document.cookie = `longitud=${longitud}; path=/`;
+
+            });
+        } else {
+            alert("La geolocalización no es compatible en este navegador.");
+        }
+    }
+
+    // Llamar a la función al cargar la página o cuando se haga clic en un botón
+    window.onload = obtenerYGuardarUbicacion;
+
+</script>
+
+
+</body>
+
+</html>

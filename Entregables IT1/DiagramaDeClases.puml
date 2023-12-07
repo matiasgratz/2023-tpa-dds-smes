@@ -1,0 +1,156 @@
+@startuml
+
+enum TipoDeTransporte{
+    SUBTERRANEO,
+    FERROCARRIL,
+}
+
+class ServicioPublico {
+List<Linea> lineaDeTransporte
+Tipo tipoDeTransporte
+
+}
+
+class Linea{
+    String nombre
+    ArrayList<Estacion> estaciones
+    Estacion getEstacionOrigen()
+    Estacion getEstacionDestino()
+}
+
+TipoDeTransporte <-- ServicioPublico
+Linea "*" <-- ServicioPublico
+Linea --> "*" Estacion
+
+class Estacion{
+    String nombre
+    Ubicacion ubicacion
+    List<Servicio> serviciosPrestados
+
+    boolean esAccesible(Servicio)
+}
+
+class Ubicacion{
+    String calle
+    int altura
+    string barrio
+}
+
+Estacion --> Ubicacion
+Estacion --> "*" Servicio
+
+
+
+enum TipoDeServicio{
+    BANIO,
+    ASCENSOR,
+    ESCALERAMECANICA
+
+}
+
+class Servicio {
+    TipoDeServicio tipoDeServicio
+    String Descripcion
+}
+
+
+Servicio --> TipoDeServicio
+
+
+class Comunidad{
+    List<Usuario> miembros
+    List<Servicio> serviciosDeInteres
+}
+
+Comunidad --> "*"  Servicio
+Comunidad --> "*" Miembro
+
+class Miembro {
+    Usuario usuario
+    boolean esAdministrador
+    boolean esAdministradorDeComunidad()
+}
+
+
+Miembro --> Usuario
+
+class Usuario{
+    String nombre
+    String apellido
+    String email
+    Date fechaRegistracion
+    Date fechaExpiracionContrasenia
+    void cambiarContrasenia(Usuario, String)
+}
+
+class IniciarSesion{
+boolean iniciarSesion(String, String)
+}
+
+class RegistrarUsuario{
+List<Usuario> listaUsuariosRegistrados
+void validarContrasenia(String, String)
+Usuario buscarUsuario(String, String)
+}
+
+class ValidacionUsuario{
+Usuario validarUsuario(String, String)
+void registrarUsuario(String, String)
+}
+
+ValidacionUsuario <-- IniciarSesion
+ValidacionUsuario <-- RegistrarUsuario
+
+
+class LectorDeArchivo{
+    URL urlArchivo
+    List<String> devolverContenidoComoListaDeStrings()
+}
+
+abstract class ValidacionContrasenia{
+    String mensaje
+    Int Longitud_Minima
+    validate(String,String)
+
+    boolean condition(String, String)
+}
+
+RegistrarUsuario ..> ValidacionContrasenia
+IniciarSesion ..> RegistrarUsuario
+
+class ValidacionTopPeoresContrasenia{
+    List<String> contrasenias
+    boolean condition(String, String)
+}
+
+ValidacionTopPeoresContrasenia --|> ValidacionContrasenia
+
+class LongitudMinimaContrasenia{
+    boolean condition(String, String)
+}
+
+LongitudMinimaContrasenia --|> ValidacionContrasenia
+
+class CaracterRepetido{
+    boolean condition(String, String)
+}
+
+CaracterRepetido --|> ValidacionContrasenia
+
+class FormatoContrasenia{
+    boolean condition(String, String)
+}
+
+FormatoContrasenia --|> ValidacionContrasenia
+
+
+
+
+
+ValidacionTopPeoresContrasenia ..> LectorDeArchivo
+
+IniciarSesion ..> Usuario
+RegistrarUsuario --> Usuario
+
+
+@enduml

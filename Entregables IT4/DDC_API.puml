@@ -1,0 +1,66 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Datos{
+    private int cantidad;
+    private List<Domicilio> ubicaciones;
+    private int inicio;
+    private int total;
+}
+
+class Domicilio{
+  private Altura altura;
+  private Calle calle;
+  private Departamento departamento;
+  private String nomenclatura;
+  private String piso;
+  private Provincia provincia;
+  public Ubicacion ubicacion;
+}
+
+class Provincia{
+  private String id;
+  private String nombre;
+}
+
+class Departamento{
+  private String id;
+  private String nombre;
+}
+
+class Calle{
+  private String categoria;
+  private String id;
+  private String nombre;
+}
+
+class Altura{
+  private String unidad;
+  private int valor;
+}
+
+interface ServicioDeNormalizacion{
+    public Domicilio normalizacionLocalizacion(String Calle, String Altura, String Provincia, String Municipio)
+}
+
+class GeorefGob implements ServicioDeNormalizacion{
+public Domicilio normalizacionLocalizacion(String Calle, String Altura, String Provincia, String Municipio)
+}
+
+class Ubicacion{
+  private double lat;
+  private double lon;
+  ServicioUbicacionGps servicioUbicacionGps;
+}
+
+
+ServicioDeNormalizacion ..> Datos
+Datos --> "*" Domicilio
+Domicilio --> Calle
+Domicilio --> Altura
+Domicilio --> Departamento
+Domicilio --> Provincia
+Domicilio --> Ubicacion
+
+
+@enduml

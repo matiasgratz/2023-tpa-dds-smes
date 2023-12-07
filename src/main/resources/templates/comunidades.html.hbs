@@ -1,0 +1,96 @@
+{{# partial "titulo" }}
+    <title> SMES - Comunidades</title>
+{{/partial}}
+
+{{#partial "contenido" }}
+
+    <div style="padding:30px; border-radius: 15px; background-color: #bac6ef;">
+        <h1 style="color: #585fbe;">Mis comunidades</h1>
+        <div class="cards">
+            {{#membresias}}
+                <div class="card">
+
+                    {{#if this.isEsAdmin}}
+                        <div class="head">
+                            <span></span>
+                            <span><a style="color:white"
+                                     href="/comunidades/{{getMiembroId}}">{{miComunidad.nombre}}</a></span>
+                        </div>
+                    {{else}}
+                        <div class="head">
+                            {{miComunidad.nombre}}
+                        </div>
+                    {{/if}}
+
+                    <div class="content">
+                        <p style="font-size:14px; color: darkgrey">Intereses</p>
+                        <ul>
+                            {{#miComunidad.getServiciosDeInteres}}
+                                <li>{{getNombreServicio}}</li>
+                            {{/miComunidad.getServiciosDeInteres}}
+                        </ul>
+                    </div>
+                    <div class="footer">
+                        <i><p>Cantidad de miembros: {{miComunidad.cantDeMiembros}}</p></i>
+
+                        <div>
+                            <form method="post">
+                                <input type="hidden" name="desuscribir" value="{{getMiembroId}}">
+                                <input class="boton-general" type="submit" value="Desuscribirme">
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            {{/membresias}}
+
+        </div>
+    </div>
+
+    <div style="padding:30px">
+    <h1 style="color:grey">Otras Comunidades</h1>
+    <div class="cards">
+        {{#otrasComunidades}}
+            <div class="card">
+
+                <div class="head">
+                    {{nombre}}
+                </div>
+
+                <div class="content">
+                    <p style="font-size:14px; color: darkgrey">Intereses</p>
+                    <ul>
+                        {{#getServiciosDeInteres}}
+                            <li>{{getNombreServicio}}</li>
+                        {{/getServiciosDeInteres}}
+                    </ul>
+                </div>
+                <div class="footer">
+                    <i><p>Cantidad de miembros: {{cantDeMiembros}}</p></i>
+
+                    <div>
+                        <form method="post">
+                            <input type="hidden" name="suscribir" value="{{getId}}">
+                            <input class="boton-general" type="submit" value="Suscribirme">
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        {{/otrasComunidades}}
+
+    </div>
+    </div>
+
+
+
+
+
+{{/partial}}
+{{> layout.html.hbs }}

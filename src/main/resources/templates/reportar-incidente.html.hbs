@@ -1,0 +1,107 @@
+{{# partial "titulo" }}
+    <title> SMES - Reportar Incidentes</title>
+{{/partial}}
+{{# partial "contenido" }}
+
+<div style="text-align: left">
+<form method="POST">
+        <div class="cont-formulario-incidente">
+            <div class="formulario-registro">
+                <h1 style="margin-bottom:80px; font-size: 40px; text-align: center;">Reportar Incidente</h1>
+                <div class="campo">
+                    <input type="text" id="nombre" name="nombre" placeholder="Creá el nombre para el incidente" required>
+                </div>
+                <div class="dropdown-varios">
+                <select name="entidad" id="seleccionar-entidad" class="dropdown">
+                       <option value="">Seleccioná la entidad</option>
+                       {{#entidades}}
+                          <option value={{id}}>{{nombreEntidad}}</option>
+                       {{/entidades}}
+
+                </select>
+                    <br>
+                <select name="establecimiento" id="seleccionar-establecimiento" class="dropdown">
+                <option value="" >Seleccioná el establecimiento</option>
+
+                </select>
+                    <br>
+                <select id="seleccionar-servicio" name="seleccionar-servicio" class="dropdown">
+                    <option value="">Seleccioná el servicio</option>
+
+                </select>
+               </div>
+                <div class="campo">
+                    <input style="min-height:100px" type="text" id="observacion" name="observacion" placeholder="Agregá observaciones adicionales">
+                </div>
+                <button type="button" class="boton-inicio" onclick="location.href='/'">Cancelar</button>
+                <input type="submit" class="boton-registro" value="Reportar Incidente" style="background-color:#7982fc; color:white">
+                <br>
+
+            </div>
+        </div>
+    </form>
+    </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+
+<script>
+
+    // Agregar un manejador de eventos al cambio de la lista desplegable de entidad
+    document.getElementById("seleccionar-entidad").addEventListener("change", function() {
+        // Obtener el valor seleccionado en la lista de entidad
+        var entidadSeleccionada = this.value;
+        console.log(entidadSeleccionada);
+        fetch(`/JSON/entidades/${entidadSeleccionada}`)
+        .then(response => {
+
+            return response.json();
+
+        })
+        .then(data => {
+            // Aquí puedes trabajar con los datos obtenidos de la API
+            var establecimientosFiltrados = data
+            var establecimientoDropdown = document.getElementById("seleccionar-establecimiento");
+            establecimientoDropdown.innerHTML = '<option value="">Seleccione un establecimiento</option>';
+
+            establecimientosFiltrados.forEach(function(establecimiento) {
+                var option = document.createElement("option");
+                option.value = establecimiento.id;
+                option.textContent = establecimiento.nombre;
+                establecimientoDropdown.appendChild(option);
+            });
+        })
+        // Actualizar la lista de establecimientos
+
+    });
+
+    document.getElementById("seleccionar-establecimiento").addEventListener("change", function() {
+        // Obtener el valor seleccionado en la lista de entidad
+        var establecimientoSeleccionado = this.value;
+        fetch(`/JSON/establecimientos/${establecimientoSeleccionado}`)
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    // Aquí puedes trabajar con los datos obtenidos de la API
+                    var prestacionFiltrados = data
+                    var prestacionDropdown = document.getElementById("seleccionar-servicio");
+                    prestacionDropdown.innerHTML = '<option value="">Seleccione una prestacion</option>';
+
+                    prestacionFiltrados.forEach(function(prestacion) {
+                        var option = document.createElement("option");
+                        option.value = prestacion.id;
+                        option.textContent = prestacion.nombre;
+                        prestacionDropdown.appendChild(option);
+                    });
+                })
+        // Actualizar la lista de establecimientos
+
+    });
+
+
+
+</script>
+
+
+{{/partial}}
+{{> layout.html.hbs }}

@@ -1,0 +1,148 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+enum TipoDeEntidad{
+    LINEA_DE_SERVICIO_DE_TRANSPORTE,
+    ORGANIZACION
+}
+enum TipoDeControlador{
+    EMPRESA,
+    ORGANISMO_CONTROL
+}
+
+class Controlador{
+    String email
+    TipoDeControlador tipoDeControlador
+}
+Controlador --> TipoDeControlador
+
+class Entidad{
+    String nombre
+    TipoDeEntidad tipoDeEntidad
+    ArrayList<Controlador> controladores;
+    ArrayList<Establecimiento> establecimientos
+    boolean estaEnLocacion(Localizacion locacion);
+    void enviarResumenAControladores()
+}
+
+Entidad --> "*" Establecimiento
+Entidad --> TipoDeEntidad
+Entidad --> "*" Controlador
+
+class Establecimiento{
+    String nombre
+    Localizacion locacion
+    List<PrestacionDeServicio> serviciosPrestados
+    boolean esAccesible(Servicio)
+}
+
+Establecimiento --> Ubicacion
+Establecimiento --> "*" PrestacionDeServicio
+
+interface Ubicacion{
+    boolean compararLocalizaciones(Ubicacion ubicacion)
+}
+
+Usuario --> Ubicacion
+
+class Calle implements Ubicacion{
+    String calle
+    String municipio
+    String departamento
+    String provincia
+    ServicioGeoRef servicioGeografico
+    boolean compararLocalizaciones(Ubicacion ubicacion)
+}
+
+
+Ubicacion --> ServicioGeoRef
+
+class Municipio implements Ubicacion{
+    String municipio
+    String departamento
+    String provincia
+    ServicioGeoRef servicioGeografico
+    boolean compararLocalizaciones(Ubicacion ubicacion);
+}
+
+class Departamento implements Ubicacion{
+    String departamento
+    String provincia
+    ServicioGeoRef servicioGeografico
+    boolean compararLocalizaciones(Ubicacion ubicacion);
+}
+
+class Provincia implements Ubicacion{
+    String provincia
+    ServicioGeoRef servicioGeografico
+    boolean compararLocalizaciones(Ubicacion ubicacion);
+}
+
+enum TipoDeServicio{
+    BANIO,
+    ASCENSOR,
+    ESCALERAMECANICA
+}
+
+
+class Servicio {
+    TipoDeServicio tipoDeServicio
+    String Descripcion
+}
+
+class PrestacionDeServicio{
+    boolean funciona
+    Servicio servicio
+}
+
+Servicio --> TipoDeServicio
+PrestacionDeServicio --> Servicio
+
+class Comunidad{
+    List<Usuario> miembros
+    List<Servicio> serviciosDeInteres
+}
+Comunidad -left-> "*"  Servicio
+Comunidad --> "*" Miembro
+
+
+class Miembro {
+    Usuario usuario
+    boolean esAdministrador
+    boolean esAdministradorDeComunidad()
+}
+Miembro --> Usuario
+
+class Usuario {
+    List<Entidad> entidadesDeInteres
+    List<Servicio> serviciosDeInteres
+
+    Localizacion localizacion
+    List<Servicio> serviciosDeInteresConIncidentes()
+    Int localizacionNormalizada()
+    List<Servicio> serviciosLocales()
+}
+
+
+Usuario --> "*" Entidad
+Usuario --> "*" Servicio
+
+
+
+
+interface ServicioGeoRef {
+    String normalizarLocalizacion(String)
+}
+
+
+class ServicioGeoRefDatosGobAr implements ServicioGeoRef {
+    String normalizarLocalizacion(String)
+}
+
+
+class ServicioGeoRefMock implements ServicioGeoRef {
+    String normalizarLocalizacion(String)
+}
+
+@enduml
